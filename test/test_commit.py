@@ -1,7 +1,6 @@
 import unittest  # for actual testing
 import os
 import pathlib  # for traversing the directories
-import re  # for checking filenames
 
 
 class testFileStructure(unittest.TestCase):
