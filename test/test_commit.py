@@ -4,7 +4,6 @@ import pathlib  # for traversing the directories
 import re  # for checking filenames
 
 
-
 class testFileStructure(unittest.TestCase):
 
     def setUp(self):
@@ -25,8 +24,8 @@ class testFileStructure(unittest.TestCase):
 
         for filz in self.files:
             # no files with .py extensions should be in the root of the directory
-            self.assertIsNone(re.match(
-                ".*\.py$", filz), "Python files are not allowed in the root of the project")
+            self.assertNotEqual(pathlib.Path(
+                filz).suffix, ".py", f"Python files are not allowed in the root of the project")
 
     def test_personal_folders(self):
 
@@ -44,8 +43,10 @@ class testFileStructure(unittest.TestCase):
 
             for filzs in os.listdir(dirz):
                 # There should be only one file inside each folder
-                self.assertIsNotNone(re.match(
-                    ".*\.py$", filzs), f"Only .py files are allowed in the subfolders. Offending folder : {dirz}")
+                self.assertEqual(pathlib.Path(
+                    filzs).suffix, ".py", f"Only .py files are allowed in the subfolders. Offending folder : {dirz}")
+
 
 if __name__ == "__main__":
+
     unittest.main()
